@@ -1,9 +1,10 @@
 import { MantineProvider, Text } from '@mantine/core';
+import RoutesMain from './routes';
 
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Text>Empbank</Text>
+      <RoutesMain />
     </MantineProvider>
   );
 }
