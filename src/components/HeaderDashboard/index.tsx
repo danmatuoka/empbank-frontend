@@ -4,6 +4,7 @@ import logoempdash from '../../assets/Images/logoempdash.svg';
 const HeaderDashboard = () => {
   return (
     <Container
+      size="lg"
       sx={{
         display: 'flex',
         alignItems: 'center',
