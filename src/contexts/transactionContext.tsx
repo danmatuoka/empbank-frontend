@@ -20,16 +20,17 @@ interface ITransactionProviderProps {
 
 interface ITransactionContext {
   loadTransactions: () => Promise<void>;
-  transaction: ITransactionResponse | null;
+  transaction: ITransactionResponse | undefined;
   formatData: (date: string) => string;
   formatValue: (value: string) => string;
   addNewTransaction: (transactionData: ITransactionReq) => Promise<void>;
+  loadPagesNext: (page: number) => Promise<void>;
 }
 
 export const TransactionContext = createContext({} as ITransactionContext);
 
 const TransactionProvider = ({ children }: ITransactionProviderProps) => {
-  const [transaction, setTransaction] = useState(null);
+  const [transaction, setTransaction] = useState<ITransactionResponse>();
 
   const addNewTransaction = async (transactionData: ITransactionReq) => {
     try {
@@ -59,6 +60,16 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  const loadPagesNext = async (page: number) => {
+    try {
+      const { data } = await api.get(`/transaction?limit=5&page=${page}`);
+
+      setTransaction(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const formatData = (date: string) => {
     const newDate = new Date(date);
 
@@ -82,6 +93,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
         formatData,
         formatValue,
         addNewTransaction,
+        loadPagesNext,
       }}
     >
       {children}

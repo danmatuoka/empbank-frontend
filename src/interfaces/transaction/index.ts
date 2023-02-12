@@ -9,8 +9,7 @@ export interface ITransaction {
 
 export interface ITransactionResponse {
   count: number;
-  nextUrl: string;
-  previousUrl: string;
+  page: string;
   transactions: ITransaction[];
 }
 

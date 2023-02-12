@@ -1,4 +1,4 @@
-import { Box, Container } from '@mantine/core';
+import { Box, Center, Container, Pagination } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import CardTotal from '../../components/CardTotal';
@@ -11,7 +11,8 @@ import { useUserContext } from '../../contexts/userContext';
 
 const DashboardPage = () => {
   const [opened, setOpened] = useState(false);
-  const { transaction, loadTransactions } = useTransactionContext();
+  const { transaction, loadTransactions, loadPagesNext } =
+    useTransactionContext();
   const { token } = useUserContext();
 
   useEffect(() => {
@@ -45,6 +46,15 @@ const DashboardPage = () => {
           );
         })}
       </>
+      <Center sx={{ marginTop: 20 }}>
+        <Pagination
+          onChange={(page: number) => {
+            loadPagesNext(page);
+          }}
+          total={5}
+          initialPage={1}
+        />
+      </Center>
     </Box>
   ) : (
     <Navigate to="/" />
