@@ -1,6 +1,7 @@
 import { Box, Container } from '@mantine/core';
 import { useState } from 'react';
 import CardTotal from '../../components/CardTotal';
+import CardTransaction from '../../components/CardTransaction';
 import HeaderDashboard from '../../components/HeaderDashboard';
 import InputSearch from '../../components/InputSearch';
 import ModalTransaction from '../../components/ModalTransaction';
@@ -21,6 +22,7 @@ const DashboardPage = () => {
         <CardTotal type="Total" value="R$ 10.000,00" />
       </Container>
       <InputSearch />
+      <CardTransaction />
     </Box>
   );
 };
