@@ -1,5 +1,23 @@
 import { Card, Container, Group, Text } from '@mantine/core';
-const CardTransaction = () => {
+import { useTransactionContext } from '../../contexts/transactionContext';
+
+export interface ITransactionProps {
+  title: string;
+  value: string;
+  category: string;
+  type: string;
+  created_at: string;
+}
+
+const CardTransaction = ({
+  title,
+  category,
+  value,
+  created_at,
+  type,
+}: ITransactionProps) => {
+  const { formatData, formatValue } = useTransactionContext();
+
   return (
     <Container size="lg" sx={{ marginTop: 20 }}>
       <Card
@@ -8,19 +26,32 @@ const CardTransaction = () => {
       >
         <Group>
           <div
-            style={{
-              width: 12,
-              height: 12,
-              borderRadius: '50%',
-              backgroundColor: 'green',
-            }}
+            style={
+              type === 'entrada'
+                ? {
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    backgroundColor: 'green',
+                  }
+                : {
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    backgroundColor: 'red',
+                  }
+            }
           ></div>
-          <Text>Título</Text>
+          <Text>{title}</Text>
         </Group>
         <Group position="apart" sx={{ width: '55%' }}>
-          <Text>Valor</Text>
-          <Text>Categoria</Text>
-          <Text>Data</Text>
+          <Text sx={type == 'entrada' ? { color: 'green' } : { color: 'red' }}>
+            {type == 'entrada'
+              ? `${formatValue(value)}`
+              : `- ${formatValue(value)}`}
+          </Text>
+          <Text>{category}</Text>
+          <Text>{formatData(created_at)}</Text>
         </Group>
       </Card>
     </Container>

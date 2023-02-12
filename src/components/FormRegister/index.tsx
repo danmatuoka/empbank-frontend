@@ -9,8 +9,11 @@ import {
 import { useForm, isNotEmpty, isEmail } from '@mantine/form';
 import { Link } from 'react-router-dom';
 import logoemp from '../../assets/Images/logoemp.svg';
+import { useUserContext } from '../../contexts/userContext';
 
 const FormRegister = () => {
+  const { registerUser } = useUserContext();
+
   const form = useForm({
     initialValues: {
       name: '',
@@ -38,7 +41,7 @@ const FormRegister = () => {
       <Image src={logoemp} alt="logo empbank" />
       <Text sx={{ fontSize: 30, fontWeight: 700 }}>Faça seu login</Text>
       <form
-        onSubmit={form.onSubmit((values) => console.log(values))}
+        onSubmit={form.onSubmit((values) => registerUser(values))}
         style={{
           display: 'flex',
           flexDirection: 'column',

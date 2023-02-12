@@ -2,6 +2,7 @@ import { Modal, Button, TextInput, Select, Text, Group } from '@mantine/core';
 import { useForm, isNotEmpty, isEmail } from '@mantine/form';
 import { IconArrowUpCircle, IconCircleArrowDown } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useTransactionContext } from '../../contexts/transactionContext';
 
 interface ModalProps {
   opened: boolean;
@@ -11,6 +12,7 @@ interface ModalProps {
 const ModalTransaction = ({ opened, setOpened }: ModalProps) => {
   const [incoming, setIncoming] = useState(false);
   const [outflow, setOutflow] = useState(false);
+  const { addNewTransaction } = useTransactionContext();
 
   const form = useForm({
     initialValues: {
@@ -36,7 +38,7 @@ const ModalTransaction = ({ opened, setOpened }: ModalProps) => {
       onClose={() => setOpened(false)}
     >
       <form
-        onSubmit={form.onSubmit((values) => console.log(values))}
+        onSubmit={form.onSubmit((values) => addNewTransaction(values))}
         style={{
           display: 'flex',
           flexDirection: 'column',
