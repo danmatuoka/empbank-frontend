@@ -1,12 +1,17 @@
 import { Box, Container } from '@mantine/core';
+import { useState } from 'react';
 import CardTotal from '../../components/CardTotal';
 import HeaderDashboard from '../../components/HeaderDashboard';
 import InputSearch from '../../components/InputSearch';
+import ModalTransaction from '../../components/ModalTransaction';
 
 const DashboardPage = () => {
+  const [opened, setOpened] = useState(false);
+
   return (
     <Box>
-      <HeaderDashboard />
+      <ModalTransaction opened={opened} setOpened={setOpened} />
+      <HeaderDashboard setOpened={setOpened} />
       <Container
         size="lg"
         sx={{ display: 'flex', justifyContent: 'space-between' }}

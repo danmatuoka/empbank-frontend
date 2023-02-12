@@ -11,7 +11,7 @@ const InputSearch = () => {
         marginTop: '20px',
       }}
     >
-      <TextInput width="90%" placeholder="Busque uma transação" />
+      <TextInput sx={{ width: '88%' }} placeholder="Busque uma transação" />
       <Button leftIcon={<IconSearch />} variant="outline" color="#60CFFA">
         Buscar
       </Button>
