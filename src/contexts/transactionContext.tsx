@@ -20,22 +20,29 @@ interface ITransactionProviderProps {
 
 interface ITransactionContext {
   loadTransactions: () => Promise<void>;
+  loadAllTransactions: () => Promise<void>;
   transaction: ITransactionResponse | undefined;
+  allTransactions: ITransaction[];
   formatData: (date: string) => string;
   formatValue: (value: string) => string;
   addNewTransaction: (transactionData: ITransactionReq) => Promise<void>;
   loadPagesNext: (page: number) => Promise<void>;
+  totalEntries: (transactions: ITransaction[]) => number;
+  totalOut: (transactions: ITransaction[]) => number;
+  totalValues: (transactions: ITransaction[]) => number;
 }
 
 export const TransactionContext = createContext({} as ITransactionContext);
 
 const TransactionProvider = ({ children }: ITransactionProviderProps) => {
   const [transaction, setTransaction] = useState<ITransactionResponse>();
+  const [allTransactions, setAllTransactions] = useState<ITransaction[]>([]);
 
   const addNewTransaction = async (transactionData: ITransactionReq) => {
     try {
       await api.post('/transaction', transactionData);
       loadTransactions();
+      loadAllTransactions();
       showNotification({ message: 'Cadastro efetuado com sucesso' });
     } catch (err) {
       console.log(err);
@@ -60,6 +67,21 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  const loadAllTransactions = async () => {
+    const token = localStorage.getItem('@empbank:token');
+
+    if (token) {
+      try {
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        const { data } = await api.get('/transaction/all');
+        setAllTransactions(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const loadPagesNext = async (page: number) => {
     try {
       const { data } = await api.get(`/transaction?limit=5&page=${page}`);
@@ -68,6 +90,38 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const totalEntries = (transactions: ITransaction[]) => {
+    const filterEntries = transactions!.filter(
+      (elem) => elem.type.toLowerCase() == 'entrada'
+    );
+    if (filterEntries.length == 0) {
+      return 0;
+    }
+
+    return filterEntries.reduce((a, b) => {
+      return a + parseFloat(b.value);
+    }, 0);
+  };
+
+  const totalOut = (transactions: ITransaction[]) => {
+    const filterOut = transactions!.filter(
+      (elem) => elem.type.toLowerCase() == 'saída'
+    );
+    if (filterOut.length == 0) {
+      return 0;
+    }
+    return filterOut.reduce((a, b) => {
+      return a + parseFloat(b.value);
+    }, 0);
+  };
+
+  const totalValues = (transactions: ITransaction[]) => {
+    if (transactions.length == 0) return 0;
+    return transactions!.reduce((a, b) => {
+      return a + parseFloat(b.value);
+    }, 0);
   };
 
   const formatData = (date: string) => {
@@ -89,11 +143,16 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     <TransactionContext.Provider
       value={{
         loadTransactions,
+        loadAllTransactions,
         transaction,
+        allTransactions,
         formatData,
         formatValue,
         addNewTransaction,
         loadPagesNext,
+        totalEntries,
+        totalOut,
+        totalValues,
       }}
     >
       {children}

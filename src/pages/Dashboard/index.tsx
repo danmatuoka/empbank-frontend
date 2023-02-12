@@ -11,12 +11,21 @@ import { useUserContext } from '../../contexts/userContext';
 
 const DashboardPage = () => {
   const [opened, setOpened] = useState(false);
-  const { transaction, loadTransactions, loadPagesNext } =
-    useTransactionContext();
+  const {
+    transaction,
+    allTransactions,
+    loadTransactions,
+    loadAllTransactions,
+    loadPagesNext,
+    totalEntries,
+    totalOut,
+    totalValues,
+  } = useTransactionContext();
   const { token } = useUserContext();
 
   useEffect(() => {
     loadTransactions();
+    loadAllTransactions();
   }, []);
 
   return token ? (
@@ -27,9 +36,9 @@ const DashboardPage = () => {
         size="lg"
         sx={{ display: 'flex', justifyContent: 'space-between' }}
       >
-        <CardTotal type="Entradas" value="R$ 10.000,00" />
-        <CardTotal type="Saidas" value="R$ 10.000,00" />
-        <CardTotal type="Total" value="R$ 10.000,00" />
+        <CardTotal type="Entradas" value={totalEntries(allTransactions)} />
+        <CardTotal type="Saidas" value={totalOut(allTransactions)} />
+        <CardTotal type="Total" value={totalValues(allTransactions)} />
       </Container>
       <InputSearch />
       <>

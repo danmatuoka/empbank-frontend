@@ -4,10 +4,11 @@ import {
   IconCircleArrowDown,
   IconCurrencyDollar,
 } from '@tabler/icons-react';
+import { useTransactionContext } from '../../contexts/transactionContext';
 
 interface CardTotalProps {
   type: string;
-  value: string;
+  value: number;
 }
 
 const cardStyleBlack = {
@@ -23,6 +24,8 @@ const cardStyleWhite = {
 };
 
 const CardTotal = ({ type, value }: CardTotalProps) => {
+  const { formatValue } = useTransactionContext();
+
   return (
     <Card
       shadow="sm"
@@ -38,7 +41,7 @@ const CardTotal = ({ type, value }: CardTotalProps) => {
         {type === 'Total' && <IconCurrencyDollar color="#00B37E" />}
       </Group>
       <Text size="xl" weight="700" sx={{ marginTop: 10 }}>
-        {value}
+        {formatValue(String(value))}
       </Text>
     </Card>
   );
