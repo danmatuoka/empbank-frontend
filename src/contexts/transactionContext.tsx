@@ -30,6 +30,8 @@ interface ITransactionContext {
   totalEntries: (transactions: ITransaction[]) => number;
   totalOut: (transactions: ITransaction[]) => number;
   totalValues: (transactions: ITransaction[]) => number;
+  opened: boolean;
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const TransactionContext = createContext({} as ITransactionContext);
@@ -37,6 +39,7 @@ export const TransactionContext = createContext({} as ITransactionContext);
 const TransactionProvider = ({ children }: ITransactionProviderProps) => {
   const [transaction, setTransaction] = useState<ITransactionResponse>();
   const [allTransactions, setAllTransactions] = useState<ITransaction[]>([]);
+  const [opened, setOpened] = useState(false);
 
   const addNewTransaction = async (transactionData: ITransactionReq) => {
     try {
@@ -44,6 +47,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
       loadTransactions();
       loadAllTransactions();
       showNotification({ message: 'Cadastro efetuado com sucesso' });
+      setOpened(false);
     } catch (err) {
       console.log(err);
       showNotification({ message: 'Algo deu errado!' });
@@ -153,6 +157,8 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
         totalEntries,
         totalOut,
         totalValues,
+        opened,
+        setOpened,
       }}
     >
       {children}

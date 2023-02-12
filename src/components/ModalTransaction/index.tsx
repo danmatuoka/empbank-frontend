@@ -21,7 +21,6 @@ const ModalTransaction = ({ opened, setOpened }: ModalProps) => {
       category: '',
       type: '',
     },
-
     validate: {
       title: isNotEmpty('Campo obrigatório'),
       value: isNotEmpty('Campo obrigatório'),
@@ -38,7 +37,10 @@ const ModalTransaction = ({ opened, setOpened }: ModalProps) => {
       onClose={() => setOpened(false)}
     >
       <form
-        onSubmit={form.onSubmit((values) => addNewTransaction(values))}
+        onSubmit={form.onSubmit((values) => {
+          addNewTransaction(values);
+          form.reset();
+        })}
         style={{
           display: 'flex',
           flexDirection: 'column',

@@ -10,7 +10,6 @@ import { useTransactionContext } from '../../contexts/transactionContext';
 import { useUserContext } from '../../contexts/userContext';
 
 const DashboardPage = () => {
-  const [opened, setOpened] = useState(false);
   const {
     transaction,
     allTransactions,
@@ -20,6 +19,8 @@ const DashboardPage = () => {
     totalEntries,
     totalOut,
     totalValues,
+    opened,
+    setOpened,
   } = useTransactionContext();
   const { token } = useUserContext();
 
