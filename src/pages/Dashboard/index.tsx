@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import CardTotal from '../../components/CardTotal';
 import CardTransaction from '../../components/CardTransaction';
+import EmptyCard from '../../components/EmptyCard';
 import HeaderDashboard from '../../components/HeaderDashboard';
 import InputSearch from '../../components/InputSearch';
 import ModalTransaction from '../../components/ModalTransaction';
@@ -43,6 +44,7 @@ const DashboardPage = () => {
         <CardTotal type="Total" value={totalValues(allTransactions)} />
       </Container>
       <InputSearch />
+      {transaction?.transactions.length == 0 && <EmptyCard />}
       <>
         {filterTransaction
           ? filterTransaction.map((elem) => (
