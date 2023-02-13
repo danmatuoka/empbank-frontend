@@ -10,9 +10,11 @@ import { useForm, isNotEmpty, isEmail } from '@mantine/form';
 import { Link } from 'react-router-dom';
 import logoemp from '../../assets/Images/logoemp.svg';
 import { useUserContext } from '../../contexts/userContext';
+import { useMediaQuery } from '@mantine/hooks';
 
 const FormLogin = () => {
   const { signIn } = useUserContext();
+  const isMobile = useMediaQuery('(max-width: 900px)');
 
   const form = useForm({
     initialValues: {
@@ -32,18 +34,22 @@ const FormLogin = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
+        marginTop: isMobile ? 100 : 0,
         gap: 15,
-        padding: 5,
+        padding: isMobile ? 20 : 5,
       }}
     >
       <Image src={logoemp} alt="logo empbank" />
-      <Text sx={{ fontSize: 30, fontWeight: 700 }}>Faça seu login</Text>
+      <Text sx={{ fontSize: isMobile ? 20 : 30, fontWeight: 700 }}>
+        Faça seu login
+      </Text>
       <form
         onSubmit={form.onSubmit((values) => signIn(values))}
         style={{
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
+          minWidth: 300,
           gap: 15,
         }}
       >
