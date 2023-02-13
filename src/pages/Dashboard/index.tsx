@@ -21,6 +21,7 @@ const DashboardPage = () => {
     totalValues,
     opened,
     setOpened,
+    filterTransaction,
   } = useTransactionContext();
   const { token } = useUserContext();
 
@@ -43,25 +44,34 @@ const DashboardPage = () => {
       </Container>
       <InputSearch />
       <>
-        {transaction?.transactions.map((elem) => {
-          return (
-            <CardTransaction
-              key={elem.id}
-              title={elem.title}
-              type={elem.type}
-              category={elem.category}
-              created_at={elem.created_at}
-              value={elem.value}
-            />
-          );
-        })}
+        {filterTransaction
+          ? filterTransaction.map((elem) => (
+              <CardTransaction
+                key={elem.id}
+                title={elem.title}
+                type={elem.type}
+                category={elem.category}
+                created_at={elem.created_at}
+                value={elem.value}
+              />
+            ))
+          : transaction?.transactions.map((elem) => (
+              <CardTransaction
+                key={elem.id}
+                title={elem.title}
+                type={elem.type}
+                category={elem.category}
+                created_at={elem.created_at}
+                value={elem.value}
+              />
+            ))}
       </>
       <Center sx={{ marginTop: 20 }}>
         <Pagination
           onChange={(page: number) => {
             loadPagesNext(page);
           }}
-          total={Math.ceil(transaction!.count / 5)}
+          total={transaction ? Math.ceil(transaction.count / 5) : 1}
           initialPage={1}
         />
       </Center>

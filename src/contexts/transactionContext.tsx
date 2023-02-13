@@ -32,14 +32,22 @@ interface ITransactionContext {
   totalValues: (transactions: ITransaction[]) => number;
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setFilterTransaction: React.Dispatch<
+    React.SetStateAction<ITransaction[] | undefined>
+  >;
+  filterTransaction: ITransaction[] | undefined;
 }
 
 export const TransactionContext = createContext({} as ITransactionContext);
 
 const TransactionProvider = ({ children }: ITransactionProviderProps) => {
   const [transaction, setTransaction] = useState<ITransactionResponse>();
+  const [filterTransaction, setFilterTransaction] = useState<ITransaction[]>();
   const [allTransactions, setAllTransactions] = useState<ITransaction[]>([]);
   const [opened, setOpened] = useState(false);
+  const [search, setSearch] = useState('');
 
   const addNewTransaction = async (transactionData: ITransactionReq) => {
     try {
@@ -65,6 +73,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
         console.log(data);
 
         setTransaction(data);
+        setFilterTransaction(undefined);
       } catch (error) {
         console.error(error);
       }
@@ -111,9 +120,9 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
 
   const totalOut = (transactions: ITransaction[]) => {
     const filterOut = transactions!.filter(
-      (elem) => elem.type.toLowerCase() == 'saída'
+      (elem) =>
+        elem.type.toLowerCase() == 'saída' || elem.type.toLowerCase() == 'saida'
     );
-    console.log(filterOut);
     if (filterOut.length == 0) {
       return 0;
     }
@@ -157,6 +166,10 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
         totalValues,
         opened,
         setOpened,
+        search,
+        setSearch,
+        setFilterTransaction,
+        filterTransaction,
       }}
     >
       {children}
