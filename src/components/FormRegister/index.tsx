@@ -7,12 +7,14 @@ import {
   Button,
 } from '@mantine/core';
 import { useForm, isNotEmpty, isEmail } from '@mantine/form';
+import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import logoemp from '../../assets/Images/logoemp.svg';
 import { useUserContext } from '../../contexts/userContext';
 
 const FormRegister = () => {
   const { registerUser } = useUserContext();
+  const isMobile = useMediaQuery('(max-width: 900px)');
 
   const form = useForm({
     initialValues: {
@@ -34,18 +36,22 @@ const FormRegister = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
+        marginTop: isMobile ? 100 : 0,
         gap: 15,
-        padding: 5,
+        padding: isMobile ? 20 : 5,
       }}
     >
       <Image src={logoemp} alt="logo empbank" />
-      <Text sx={{ fontSize: 30, fontWeight: 700 }}>Faça seu login</Text>
+      <Text sx={{ fontSize: isMobile ? 20 : 30, fontWeight: 700 }}>
+        Faça seu cadastro
+      </Text>
       <form
         onSubmit={form.onSubmit((values) => registerUser(values))}
         style={{
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
+          minWidth: 300,
           gap: 15,
         }}
       >
