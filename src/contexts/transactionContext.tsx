@@ -113,6 +113,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     const filterOut = transactions!.filter(
       (elem) => elem.type.toLowerCase() == 'saída'
     );
+    console.log(filterOut);
     if (filterOut.length == 0) {
       return 0;
     }
@@ -122,10 +123,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
   };
 
   const totalValues = (transactions: ITransaction[]) => {
-    if (transactions.length == 0) return 0;
-    return transactions!.reduce((a, b) => {
-      return a + parseFloat(b.value);
-    }, 0);
+    return totalEntries(transactions) - totalOut(transactions);
   };
 
   const formatData = (date: string) => {
