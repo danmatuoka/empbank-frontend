@@ -61,7 +61,7 @@ const DashboardPage = () => {
           onChange={(page: number) => {
             loadPagesNext(page);
           }}
-          total={5}
+          total={Math.ceil(transaction!.count / 5)}
           initialPage={1}
         />
       </Center>
