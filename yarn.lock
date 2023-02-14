@@ -692,6 +692,19 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.3.2.tgz#58cd2bd25df2acc16c628e1b6f6150ea6c7455bc"
   integrity sha512-t54ONhl/h75X94SWsHGQ4G/ZrCEguKSRQr7DrjTciJXW0YU1QhlwYeycvK5JgkzlxmvrK7wq1NB/PLtHxoiDcA==
 
+"@tabler/icons-react@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-2.3.0.tgz#6a1f492681fff5f65efb38b8f1befd6894795a21"
+  integrity sha512-///OAT9U9bEfPx81nrVxZGfXM0qyIxZNyicvbF42Dqo5AxX5URrSW4ZWSN4LONYbWBewhjHhIOxWPs+dfa4Eyw==
+  dependencies:
+    "@tabler/icons" "2.3.0"
+    prop-types "^15.7.2"
+
+"@tabler/icons@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.3.0.tgz#7de40af399376e3bdf320710f5d2fc0cdbb5d34b"
+  integrity sha512-zYSgqYodvuuJPNl+Z5UaAP1adzONtCS923aKp7k6SuchrNOc8HE45epzI3ED0X2glYmFkd0Y/YXqPDhYi2p3Fw==
+
 "@types/json-schema@^7.0.9":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
@@ -2301,7 +2314,7 @@ prettier@^2.8.4:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
   integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
