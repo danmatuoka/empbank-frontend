@@ -1,4 +1,5 @@
 import { Box, Center, Container, Pagination } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import CardTotal from '../../components/CardTotal';
@@ -25,6 +26,7 @@ const DashboardPage = () => {
     filterTransaction,
   } = useTransactionContext();
   const { token } = useUserContext();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     loadTransactions();
@@ -37,7 +39,16 @@ const DashboardPage = () => {
       <HeaderDashboard setOpened={setOpened} />
       <Container
         size="lg"
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{
+          display: 'flex',
+          justifyContent: isMobile ? 'center' : 'space-between',
+          alignItems: 'center',
+          marginTop: 20,
+          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          gap: isMobile ? 10 : 0,
+          height: 100,
+          overflowY: isMobile ? 'scroll' : 'hidden',
+        }}
       >
         <CardTotal type="Entradas" value={totalEntries(allTransactions)} />
         <CardTotal type="Saidas" value={totalOut(allTransactions)} />

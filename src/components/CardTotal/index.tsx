@@ -5,26 +5,30 @@ import {
   IconCurrencyDollar,
 } from '@tabler/icons-react';
 import { useTransactionContext } from '../../contexts/transactionContext';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface CardTotalProps {
   type: string;
   value: number;
 }
 
-const cardStyleBlack = {
-  width: 325,
-  height: 110,
-  backgroundColor: '#2D303D',
-  color: 'white',
-};
-
-const cardStyleWhite = {
-  width: 325,
-  height: 110,
-};
-
 const CardTotal = ({ type, value }: CardTotalProps) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const { formatValue } = useTransactionContext();
+
+  const cardStyleBlack = {
+    width: 325,
+    minWidth: 180,
+    height: 100,
+    backgroundColor: '#2D303D',
+    color: 'white',
+  };
+
+  const cardStyleWhite = {
+    width: 325,
+    height: 100,
+    minWidth: 180,
+  };
 
   return (
     <Card
@@ -40,7 +44,7 @@ const CardTotal = ({ type, value }: CardTotalProps) => {
         {type === 'Saidas' && <IconCircleArrowDown color="red" />}
         {type === 'Total' && <IconCurrencyDollar color="#00B37E" />}
       </Group>
-      <Text size="xl" weight="700" sx={{ marginTop: 10 }}>
+      <Text size={isMobile ? 'md' : 'xl'} weight="700" sx={{ marginTop: 10 }}>
         {formatValue(String(value))}
       </Text>
     </Card>

@@ -1,4 +1,5 @@
 import { Card, Container, Group, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useTransactionContext } from '../../contexts/transactionContext';
 
 export interface ITransactionProps {
@@ -17,6 +18,7 @@ const CardTransaction = ({
   type,
 }: ITransactionProps) => {
   const { formatData, formatValue } = useTransactionContext();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Container size="lg" sx={{ marginTop: 20 }}>
@@ -44,7 +46,15 @@ const CardTransaction = ({
           ></div>
           <Text>{title}</Text>
         </Group>
-        <Group position="apart" sx={{ width: '55%' }}>
+        <Group
+          position="apart"
+          sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: 'flex-end',
+            width: '55%',
+          }}
+        >
           <Text sx={type == 'entrada' ? { color: 'green' } : { color: 'red' }}>
             {type == 'entrada'
               ? `${formatValue(value)}`
