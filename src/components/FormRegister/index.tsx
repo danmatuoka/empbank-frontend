@@ -6,7 +6,7 @@ import {
   PasswordInput,
   Button,
 } from '@mantine/core';
-import { useForm, isNotEmpty, isEmail } from '@mantine/form';
+import { useForm, isNotEmpty, isEmail, hasLength } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import logoemp from '../../assets/Images/logoemp.svg';
@@ -26,7 +26,7 @@ const FormRegister = () => {
     validate: {
       name: isNotEmpty('Campo obrigatório'),
       email: isEmail('Email inválido'),
-      password: isNotEmpty('Campo obrigatório'),
+      password: hasLength({ min: 8 }, 'Pelo menos 8 caracteres'),
     },
   });
 
