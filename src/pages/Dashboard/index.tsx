@@ -43,7 +43,7 @@ const DashboardPage = () => {
           display: 'flex',
           justifyContent: isMobile ? 'center' : 'space-between',
           alignItems: 'center',
-          marginTop: 20,
+          marginTop: 15,
           flexWrap: isMobile ? 'wrap' : 'nowrap',
           gap: isMobile ? 10 : 0,
           height: 100,
@@ -79,7 +79,7 @@ const DashboardPage = () => {
               />
             ))}
       </>
-      <Center sx={{ marginTop: 20 }}>
+      <Center sx={{ marginTop: 20, marginBottom: 20 }}>
         <Pagination
           onChange={(page: number) => {
             loadPagesNext(page);

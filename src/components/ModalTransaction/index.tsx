@@ -64,10 +64,10 @@ const ModalTransaction = ({ opened, setOpened }: ModalProps) => {
           placeholder="Selecione uma categoria"
           label="Categoria"
           data={[
-            { value: 'alimentação', label: 'Alimentação' },
-            { value: 'salario', label: 'Salário' },
-            { value: 'transporte', label: 'Transporte' },
-            { value: 'aluguel', label: 'Aluguel' },
+            { value: 'Alimentação', label: 'Alimentação' },
+            { value: 'Salário', label: 'Salário' },
+            { value: 'Transporte', label: 'Transporte' },
+            { value: 'Aluguel', label: 'Aluguel' },
           ]}
           {...form.getInputProps('category')}
         />
