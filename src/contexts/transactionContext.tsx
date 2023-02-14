@@ -49,6 +49,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
   const [opened, setOpened] = useState(false);
   const [search, setSearch] = useState('');
 
+  //Requisição para adicionar uma nova transação
   const addNewTransaction = async (transactionData: ITransactionReq) => {
     try {
       await api.post('/transaction', transactionData);
@@ -62,6 +63,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  //Listar as transações
   const loadTransactions = async () => {
     const token = localStorage.getItem('@empbank:token');
 
@@ -80,6 +82,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  //Listar todas as transações
   const loadAllTransactions = async () => {
     const token = localStorage.getItem('@empbank:token');
 
@@ -95,6 +98,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  //Paginação na API
   const loadPagesNext = async (page: number) => {
     try {
       const { data } = await api.get(`/transaction?limit=5&page=${page}`);
@@ -105,6 +109,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }
   };
 
+  //Soma de todas as transações de entrada
   const totalEntries = (transactions: ITransaction[]) => {
     const filterEntries = transactions!.filter(
       (elem) => elem.type.toLowerCase() == 'entrada'
@@ -118,6 +123,7 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }, 0);
   };
 
+  //Soma de todas as transações de saída
   const totalOut = (transactions: ITransaction[]) => {
     const filterOut = transactions!.filter(
       (elem) =>
@@ -131,16 +137,19 @@ const TransactionProvider = ({ children }: ITransactionProviderProps) => {
     }, 0);
   };
 
+  //Soma de todas as transações
   const totalValues = (transactions: ITransaction[]) => {
     return totalEntries(transactions) - totalOut(transactions);
   };
 
+  //Formata data dd/mm/aaaa
   const formatData = (date: string) => {
     const newDate = new Date(date);
 
     return new Intl.DateTimeFormat('pt-BR').format(newDate);
   };
 
+  //Formata valor R$0,00
   const formatValue = (value: string) => {
     const newValue = parseFloat(value);
 

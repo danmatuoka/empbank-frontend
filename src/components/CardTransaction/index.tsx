@@ -28,21 +28,12 @@ const CardTransaction = ({
       >
         <Group>
           <div
-            style={
-              type === 'entrada'
-                ? {
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    backgroundColor: 'green',
-                  }
-                : {
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    backgroundColor: 'red',
-                  }
-            }
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              backgroundColor: type === 'entrada' ? 'green' : 'red',
+            }}
           ></div>
           <Text>{title}</Text>
         </Group>
