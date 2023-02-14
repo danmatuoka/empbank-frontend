@@ -5,11 +5,11 @@ import { useTransactionContext } from '../../contexts/transactionContext';
 
 const InputSearch = () => {
   const [eventUser, setEventUser] = useState('');
-  const { search, setSearch, setFilterTransaction, transaction } =
+  const { search, setSearch, setFilterTransaction, allTransactions } =
     useTransactionContext();
 
   useEffect(() => {
-    const filterTransaction = transaction?.transactions.filter((elem) => {
+    const filterTransaction = allTransactions.filter((elem) => {
       return (
         elem.title.toLowerCase().includes(search.toLowerCase()) ||
         elem.category.toLowerCase().includes(search.toLowerCase())
